@@ -16,6 +16,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+    environment:
+      name: Production
+      url: https://r-and-l.ru
 
     steps:
       - name: Checkout repository
