@@ -43,10 +43,7 @@ const Header: React.FC = () => {
         {/* Logo */}
         <a href="#" className="text-xl font-bold tracking-tight">
           <span className="text-brand-500 font-extrabold">&lt;{t("logoName")}</span>
-          <span
-            className={`transition-colors duration-300 ${isScrolled ? "text-zinc-900 dark:text-white" : "text-white"
-              }`}
-          >
+          <span className="transition-colors duration-300 text-zinc-900 dark:text-white">
             {" "}{t("logoSurname")}
           </span>
           <span className="text-brand-500 font-extrabold">/&gt;</span>
@@ -58,10 +55,7 @@ const Header: React.FC = () => {
             <a
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-brand-500 ${isScrolled
-                  ? "text-zinc-650 dark:text-zinc-300 dark:hover:text-brand-500"
-                  : "text-zinc-300 hover:text-white"
-                }`}
+              className="text-sm font-medium transition-colors text-zinc-600 hover:text-brand-500 dark:text-zinc-300 dark:hover:text-brand-400"
             >
               {link.label}
             </a>
@@ -70,10 +64,7 @@ const Header: React.FC = () => {
           {/* Language Toggle Button */}
           <button
             onClick={toggleLanguage}
-            className={`cursor-pointer px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-300 ${isScrolled
-                ? "border-zinc-200 hover:border-brand-500 hover:text-brand-500 text-zinc-600 dark:border-zinc-850 dark:text-zinc-300 dark:hover:border-brand-500 dark:hover:text-brand-500"
-                : "border-zinc-800 bg-zinc-900/60 backdrop-blur-sm text-zinc-300 hover:border-white hover:text-white"
-              }`}
+            className="cursor-pointer px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-300 border-zinc-200 hover:border-brand-500 hover:text-brand-500 text-zinc-600 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-brand-500 dark:hover:text-brand-500 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm"
             aria-label="Toggle language"
           >
             {currentLanguage.toUpperCase()}
@@ -82,10 +73,7 @@ const Header: React.FC = () => {
           {/* Theme Switcher Toggle */}
           <button
             onClick={toggleTheme}
-            className={`relative flex h-8 w-14 cursor-pointer items-center justify-between rounded-full p-1 transition-all duration-300 ${isScrolled
-                ? "bg-zinc-200 dark:bg-zinc-800"
-                : "bg-zinc-900/60 border border-zinc-800/50 backdrop-blur-sm"
-              }`}
+            className="relative flex h-8 w-14 cursor-pointer items-center justify-between rounded-full p-1 transition-all duration-300 border border-zinc-200 bg-zinc-100 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/60 backdrop-blur-sm"
             aria-label="Toggle theme"
           >
             {/* Sliding Knob */}
@@ -112,10 +100,7 @@ const Header: React.FC = () => {
           {/* Mobile Language Toggle */}
           <button
             onClick={toggleLanguage}
-            className={`cursor-pointer px-2 py-1 text-xxs font-bold rounded-lg border transition-all duration-300 ${isScrolled
-                ? "border-zinc-200 hover:border-brand-500 hover:text-brand-500 text-zinc-650 dark:border-zinc-850 dark:text-zinc-300 dark:hover:border-brand-500 dark:hover:text-brand-500"
-                : "border-zinc-800 bg-zinc-900/60 backdrop-blur-sm text-zinc-300 hover:border-white hover:text-white"
-              }`}
+            className="cursor-pointer px-2 py-1 text-xxs font-bold rounded-lg border transition-all duration-300 border-zinc-200 hover:border-brand-500 hover:text-brand-500 text-zinc-600 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-brand-500 dark:hover:text-brand-500 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm"
           >
             {currentLanguage.toUpperCase()}
           </button>
@@ -123,10 +108,7 @@ const Header: React.FC = () => {
           {/* Mobile Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className={`relative flex h-8 w-14 cursor-pointer items-center justify-between rounded-full p-1 transition-all duration-300 ${isScrolled
-                ? "bg-zinc-200 dark:bg-zinc-800"
-                : "bg-zinc-900/60 border border-zinc-800/50 backdrop-blur-sm"
-              }`}
+            className="relative flex h-8 w-14 cursor-pointer items-center justify-between rounded-full p-1 transition-all duration-300 border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900/60 backdrop-blur-sm"
             aria-label="Toggle theme"
           >
             <div
@@ -148,10 +130,7 @@ const Header: React.FC = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`rounded p-1 transition-all duration-300 ${isScrolled
-                ? "text-zinc-600 hover:bg-zinc-155 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900"
-                : "text-zinc-300 hover:bg-zinc-900/40 hover:text-white"
-              }`}
+            className="rounded p-1 transition-all duration-300 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900"
             aria-label="Toggle Mobile Menu"
           >
             <svg

@@ -9,7 +9,6 @@ export const translations = {
       contact: "Контакты"
     },
     hero: {
-      badge: "Frontend Developer",
       headingLine1: "Привет, я ",
       headingLine2: "начинающий фронтенд",
       headingLine3: " разработчик",
@@ -92,7 +91,6 @@ export const translations = {
       contact: "Contact"
     },
     hero: {
-      badge: "Frontend Developer",
       headingLine1: "Hi, I am a ",
       headingLine2: "junior frontend",
       headingLine3: " developer",
