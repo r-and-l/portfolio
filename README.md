@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# 💻 Premium Developer Portfolio (React + TypeScript + Tailwind CSS v4)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Современный, быстрый и отзывчивый сайт-портфолио разработчика с поддержкой двух языков (RU/EN), темной/светлой темой и строгой типизацией локализации.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Основные особенности
 
-## React Compiler
+* 🌓 **Динамическая тема**: Поддержка темного и светлого режимов с плавным переключателем и сохранением выбора в `localStorage`.
+* 🌐 **Строго типизированный i18n**: Многоязычность (русский и английский) реализована через единый файл конфигурации [translations.ts](file:///d:/Projects/portfolio/src/locales/translations.ts). 
+  * Компилятор TypeScript автоматически проверяет идентичность структур языков (вы не забудете добавить перевод).
+  * Полное автодополнение ключей в IDE при использовании хука `t('...')` благодаря кастомной декларации типов.
+* 🚀 **Tailwind CSS v4**: Использование новейшей версии Tailwind с новой CSS-директивой `@theme`, переменными сборщика и плавной анимацией.
+* 📦 **Компонентный подход и DRY**:
+  * Общие стили кнопок вынесены в универсальный компонент [Button.tsx](file:///d:/Projects/portfolio/src/components/ui/Button.tsx) (поддерживает ссылки, кнопки, размеры, иконки и премиальные disabled-эффекты).
+  * Информационные ссылки вынесены в переиспользуемый [Link.tsx](file:///d:/Projects/portfolio/src/components/ui/Link.tsx).
+  * Социальные иконки в секции Hero генерируются циклом из конфигурационного массива для предотвращения дублирования HTML-кода.
+* 🧑‍💻 **Интерактивный Hero**: macOS-подобный терминал с симуляцией кода конфигурации разработчика (информация подгружается динамически на выбранном языке).
+* 📬 **Управление формой через кастомный хук**:
+  * Вся логика, валидация полей ввода (имя, email, сообщение), обработка загрузки и вывода уведомлений вынесены в [useContactForm.ts](file:///d:/Projects/portfolio/src/hooks/useContactForm.ts).
+  * Форма имеет встроенный флаг `isDisabled` для быстрой приостановки отправки сообщений с выводом стильного предупреждения и ссылками для прямой связи.
+* 🔗 **Единый файл контактов**: Все адреса для связи (Email, Telegram, GitHub, LinkedIn) вынесены в единый файл констант [contacts.ts](file:///d:/Projects/portfolio/src/constants/contacts.ts).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📂 Структура проекта
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+src/
+├── @types/          # Декларации типов для библиотек (react-i18next)
+├── assets/          # Статические изображения и графические ассеты
+├── components/      # UI-компоненты сайта
+│   ├── about/       # Секция "Обо мне"
+│   ├── common/      # Общие обертки, секции, SVG-иконки
+│   ├── contact/     # Форма обратной связи
+│   ├── footer/      # Футер сайта
+│   ├── header/      # Навигация (Header) с переключателями темы/языка
+│   ├── hero/        # Секция приветствия (Hero) и macOS терминал
+│   ├── projects/    # Секция проектов с фильтрами отображения
+│   ├── skills/      # Навыки с анимированными шкалами прогресса
+│   └── ui/          # Базовые UI-компоненты (Button, Link)
+├── constants/       # Глобальные константы (ссылки на контакты)
+├── hooks/           # Кастомные React-хуки (useTheme, useContactForm)
+├── locales/         # Единый типизированный словарь локализации
+├── App.tsx          # Главный макет и сборщик секций
+├── i18n.ts          # Инициализация и типизация i18next
+├── index.css        # Глобальные CSS переменные и стили Tailwind v4
+└── main.tsx         # Точка входа в React приложение
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Запуск и разработка
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Требования
+* Установленный [Node.js](https://nodejs.org/) (версии 18 или выше).
+* Менеджер пакетов `npm` или `yarn`.
+
+### Установка зависимостей
+```bash
+npm install
 ```
+
+### Запуск в режиме разработки
+```bash
+npm run dev
+```
+После запуска проект будет доступен на локальном хосте: [http://127.0.0.1:5173](http://127.0.0.1:5173)
+
+### Сборка для продакшена
+```bash
+npm run build
+```
+Скомпилированные и оптимизированные файлы для деплоя будут созданы в папке `dist/`.
+
+---
+
+## 🌐 Управление переводами (i18n)
+
+Все тексты хранятся в файле [translations.ts](file:///d:/Projects/portfolio/src/locales/translations.ts).
+
+### Как добавить новый перевод:
+1. Откройте [translations.ts](file:///d:/Projects/portfolio/src/locales/translations.ts).
+2. В блок `ru` добавьте новое свойство или объект.
+3. В блок `en` добавьте точно такое же свойство с переводом на английский язык.
+4. Если вы забудете добавить перевод в блок `en`, компилятор TypeScript сразу покажет ошибку.
+
+### Использование в коде:
+```tsx
+import { useTranslation } from "react-i18next";
+
+const MyComponent = () => {
+  const { t } = useTranslation();
+  return <p>{t("hero.description")}</p>; // При вводе IDE предложит автодополнение!
+};
+```
+
+---
+
+## 👥 Авторство и лицензия
+Разработано **R&L**. Все права защищены © 2026.
