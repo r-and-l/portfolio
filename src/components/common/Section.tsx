@@ -29,7 +29,7 @@ export const Section: React.FC<SectionProps> = ({
   const classes = [
     "relative overflow-hidden w-full transition-colors duration-300",
     showFullHeight ? "min-h-screen" : "",
-    hScreen ? "h-screen h-dvh flex flex-col justify-start pt-20 pb-6 md:pb-12 lg:pb-16" : "",
+    hScreen ? "min-h-screen min-h-dvh flex flex-col justify-start pt-20 pb-6 md:pb-12 lg:pb-16" : "",
     showTopOffset ? "pt-24" : "",
     showBottomPadding ? "pb-16" : "",
     flexLayout ? "flex flex-col justify-between" : "",

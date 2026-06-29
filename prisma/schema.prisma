@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  titleRu     String
+  titleEn     String
+  descRu      String
+  descEn      String
+  image       String
+  link        String
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  name        String
+  category    String   // e.g. "Languages", "Tools", "Frameworks"
+  icon        String?  // Optional icon name or URL
+  proficiency Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HeroSetting {
+  id          String   @id @default("singleton")
+  heading1Ru  String
+  heading1En  String
+  heading2Ru  String
+  heading2En  String
+  heading3Ru  String
+  heading3En  String
+  descRu      String
+  descEn      String
+  badges      Json     // Array of badge objects
+  updatedAt   DateTime @updatedAt
+}
+
+model SocialLink {
+  id        String   @id @default(uuid())
+  platform  String   // "github", "telegram", "linkedin", etc.
+  url       String
+  isActive  Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+}

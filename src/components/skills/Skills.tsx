@@ -11,16 +11,24 @@ interface SkillItem {
 const Skills: React.FC = () => {
   const { t } = useTranslation();
   const [animated, setAnimated] = useState(false);
+  const [skills, setSkills] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Trigger animation slightly after mount to see it transition
-    const timer = setTimeout(() => {
-      setAnimated(true);
-    }, 150);
-    return () => clearTimeout(timer);
+    fetch('/api/skills')
+      .then(r => r.json())
+      .then(data => {
+        setSkills(data);
+        setIsLoading(false);
+        setTimeout(() => setAnimated(true), 150);
+      })
+      .catch(e => {
+        console.error(e);
+        setIsLoading(false);
+      });
   }, []);
 
-  const skills: SkillItem[] = [
+  const defaultSkills: SkillItem[] = [
     {
       name: "HTML",
       percentage: 90,
@@ -76,6 +84,12 @@ const Skills: React.FC = () => {
     },
   ];
 
+  const getIcon = (name: string, defaultIcons: SkillItem[]) => {
+    const match = defaultIcons.find(s => s.name.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(s.name.toLowerCase()));
+    if (match) return match.icon;
+    return <CodeIcon size={20} />;
+  };
+
   return (
     <div
       id="skills"
@@ -91,30 +105,43 @@ const Skills: React.FC = () => {
 
       {/* Skills list */}
       <div className="space-y-6">
-        {skills.map((skill) => (
-          <div key={skill.name} className="flex items-center gap-4">
-            {/* Logo container */}
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-zinc-50 transition-colors dark:bg-zinc-850 dark:bg-zinc-800/40">
-              {skill.icon}
-            </div>
-
-            {/* Progress and name */}
-            <div className="flex-1">
-              <div className="mb-1.5 flex items-center justify-between text-sm font-semibold">
-                <span className="text-zinc-800 dark:text-zinc-200">{skill.name}</span>
-                <span className="text-zinc-600 dark:text-zinc-400">{skill.percentage}%</span>
+        {isLoading ? (
+          <div className="text-center py-4 text-zinc-500">Loading...</div>
+        ) : skills.length === 0 ? (
+          defaultSkills.map((skill) => (
+            <div key={skill.name} className="flex items-center gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-zinc-50 transition-colors dark:bg-zinc-850 dark:bg-zinc-800/40">
+                {skill.icon}
               </div>
-
-              {/* Progress track */}
-              <div className="h-2 w-full rounded-full bg-zinc-100 dark:bg-zinc-800">
-                <div
-                  className="h-full rounded-full bg-brand-500 transition-all duration-1000 ease-out"
-                  style={{ width: animated ? `${skill.percentage}%` : "0%" }}
-                />
+              <div className="flex-1">
+                <div className="mb-1.5 flex items-center justify-between text-sm font-semibold">
+                  <span className="text-zinc-800 dark:text-zinc-200">{skill.name}</span>
+                  <span className="text-zinc-600 dark:text-zinc-400">{skill.percentage}%</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-zinc-100 dark:bg-zinc-800">
+                  <div className="h-full rounded-full bg-brand-500 transition-all duration-1000 ease-out" style={{ width: animated ? `${skill.percentage}%` : "0%" }} />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          skills.map((skill) => (
+            <div key={skill.id} className="flex items-center gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-zinc-50 transition-colors dark:bg-zinc-850 dark:bg-zinc-800/40">
+                {getIcon(skill.name, defaultSkills)}
+              </div>
+              <div className="flex-1">
+                <div className="mb-1.5 flex items-center justify-between text-sm font-semibold">
+                  <span className="text-zinc-800 dark:text-zinc-200">{skill.name}</span>
+                  <span className="text-zinc-600 dark:text-zinc-400">{skill.proficiency}%</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-zinc-100 dark:bg-zinc-800">
+                  <div className="h-full rounded-full bg-brand-500 transition-all duration-1000 ease-out" style={{ width: animated ? `${skill.proficiency}%` : "0%" }} />
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
